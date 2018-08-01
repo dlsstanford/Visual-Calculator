@@ -10,7 +10,6 @@ const Fields = props => (
       name="number1"
       onChange={props.handleChange}
     />
-
     <input
       type="number"
       className="number-field2"
