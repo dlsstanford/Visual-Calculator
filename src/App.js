@@ -30,18 +30,18 @@ class App extends Component {
 
   // math formulas
   add = () => {
-    const { number1, number2 } = this.state;
+    const { number1, number2, number3 } = this.state;
     this.setState({
-      total: parseInt(number1) + parseInt(number2),
+      total: parseInt(number1) + parseInt(number2) + parseInt(number3),
       operator: "+"
     });
     this.addBox();
   };
 
   subtract = () => {
-    const { number1, number2 } = this.state;
+    const { number1, number2, number3 } = this.state;
     this.setState({
-      total: parseInt(number1) - parseInt(number2),
+      total: parseInt(number1) - parseInt(number2) - parseInt(number3),
       operator: "-"
     });
     this.subtractBox();
@@ -110,6 +110,9 @@ class App extends Component {
       case "?":
         return this.fooBox();
       case "O_o":
+      this.setState({
+        showFields: false
+      })
         return this.randomBox();
       default:
         return null;
@@ -117,16 +120,16 @@ class App extends Component {
   };
 
   addBox = () => {
-    const { number1, number2, total } = this.state;
+    const { number1, number2, number3, total } = this.state;
     this.setState({
-      expression: `${number1} + ${number2} = ${total}`
+      expression: `${number1} + ${number2} + ${number3} = ${total}`
     });
   };
 
   subtractBox = () => {
-    const { number1, number2, total } = this.state;
+    const { number1, number2, number3, total } = this.state;
     this.setState({
-      expression: `${number1} - ${number2} = ${total}`
+      expression: `${number1} - ${number2} - ${number3} = ${total}`
     });
   };
 

@@ -100,10 +100,9 @@ body {
 .total-button {
   height: 50px;
   width: 100px;
-  position: fixed;
-  top:65%;
-  left: 50%;
-  margin-left: -50px;
+  position: absolute;
+  top:82%;
+  left: 43%;
   border-radius: 15px;
   font-family: 'Gloria Hallelujah', cursive;
   background-color: black;
@@ -127,10 +126,9 @@ body {
   height: 50px;
   width: 100px;
   color: red;
-  position: fixed;
-  top:40%;
-  left: 35%;
-  margin-left: -50px;
+  position: absolute;
+  top:29%;
+  left: 17%;
   border-radius: 15px;
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 30px;
@@ -141,10 +139,9 @@ body {
   height: 50px;
   width: 100px;
   color: red;
-  position: fixed;
-  top:40%;
-  left: 50%;
-  margin-left: -50px;
+  position: absolute;
+  top:29%;
+  left: 43%;
   border-radius: 15px;
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 30px;
@@ -154,10 +151,9 @@ body {
   height: 50px;
   width: 100px;
   color: red;
-  position: fixed;
-  top:40%;
-  left: 65%;
-  margin-left: -50px;
+  position: absolute;
+  top:29%;
+  left: 69%;
   border-radius: 15px;
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 30px;
@@ -182,10 +178,9 @@ body {
 .operator {
   height: 50px;
   width: 100px;
-  position: fixed;
-  top:28%;
-  left: 50%;
-  margin-left: -50px;
+  position: absolute;
+  top:4%;
+  left: 43%;
   border-radius: 15px;
   font-family: 'Gloria Hallelujah', cursive;
   line-height: 50px;
@@ -230,4 +225,30 @@ font-size: 33px;
   position: relative;
   top: 110px;
   left: 185px;
+}
+
+.number-name1 {
+  position: absolute;
+  top:20%;
+  left: 19%;
+  border-radius: 15px;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+
+.number-name2 {
+  position: absolute;
+  top:20%;
+  left: 45%;
+  border-radius: 15px;
+  font-family: 'Gloria Hallelujah', cursive;
+}
+
+
+.number-name3 {
+  position: absolute;
+  top:20%;
+  left: 71%;
+  border-radius: 15px;
+  font-family: 'Gloria Hallelujah', cursive;
 }
