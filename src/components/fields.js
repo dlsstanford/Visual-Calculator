@@ -11,10 +11,7 @@ const Fields = props => (
       name="number1"
       onChange={props.handleChange}
     />
-<<<<<<< HEAD
     <span className='number-name2'>Number 2</span>
-=======
->>>>>>> 606fb917026532d21d0af64f5860e2d67df284c1
     <input
       type="number"
       className="number-field2"
