@@ -3,7 +3,7 @@ import "./App.css";
 import Fields from "./components/fields";
 import Expressions from "./components/expressions";
 import Header from "./components/header";
-
+import annyang from './Annyang'
 class App extends Component {
   state = {
     number1: 7,
@@ -16,6 +16,25 @@ class App extends Component {
     expression: null,
     random: Math.floor(Math.random() * 10 + 1)
   };
+
+  componentDidMount() {
+    annyang.addCommands(this.add, this.subract, this.foo, this.random, this.random)
+    annyang.addCallback(this.engineCallback, this.resultCallback)
+    annyang.start()
+    this.setState({
+      voiceStatus: annyang.isSupported() ? 'Supported' : 'Unsupported'
+    })
+  }
+  // 3
+  componentWillUnmount() {
+    annyang.abort()
+  }
+  engineCallback = (status) => {
+    // Set engine status
+  }
+  resultCallback = (voiceInput) => {
+    // Match voice input with player commands
+  }
   // page configuration
   viewFields = () => {
     this.setState({ showFields: true });
