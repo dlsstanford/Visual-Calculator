@@ -5,6 +5,8 @@
 Web application built using React.js Framework that allows users to drag and drop various math expressions into an interactive calculator
 > Demo application can be viewed at: https://dlsstanford.github.io/Visual-Calculator/
 
+![React](/src/img/calculator.jpg)
+
 ## User Manual
 To begin, drag one of the four operator buttons into the purple square to render button specific equations to the screen. Use the corresponding input fields to augment the expression.
 
