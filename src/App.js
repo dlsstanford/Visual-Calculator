@@ -3,22 +3,27 @@ import "./App.css";
 import Fields from "./components/fields";
 import Expressions from "./components/expressions";
 import Header from "./components/header";
-import annyang from './Annyang'
+import annyang from './Annyang';
+import HomePage from './components/homepage';
+import VoiceModal from './components/modal'
+
 class App extends Component {
   state = {
-    number1: 7,
-    number2: 4,
-    number3: 5,
+    number1: 1,
+    number2: 2,
+    number3: 3,
     total: 0,
     showFields: false,
+    calculator: false,
     operator: null,
     name: null,
     expression: null,
-    random: Math.floor(Math.random() * 10 + 1)
+    random: Math.floor(Math.random() * 10 + 1),
+    numFields: 0,
   };
 
   componentDidMount() {
-    annyang.addCommands(this.add, this.subract, this.foo, this.random, this.random)
+    annyang.addCommands(this.voiceAdd, this.voiceSubtract, this.voiceFoo, this.randomBox)
     annyang.addCallback(this.engineCallback, this.resultCallback)
     annyang.start()
     this.setState({
@@ -34,10 +39,15 @@ class App extends Component {
   }
   resultCallback = (voiceInput) => {
     // Match voice input with player commands
+    console.log(voiceInput[0])
   }
   // page configuration
   viewFields = () => {
     this.setState({ showFields: true });
+  };
+
+  showCalculator = () => {
+    this.setState({ calculator: true });
   };
 
   handleChange = e => {
@@ -48,36 +58,77 @@ class App extends Component {
   };
 
   // math formulas
-  add = () => {
-    const { number1, number2, number3 } = this.state;
+  add = (number1, number2) => {
+    number1 = this.state.number1;
+    number2 = this.state.number2;
     this.setState({
-      total: parseInt(number1) + parseInt(number2) + parseInt(number3),
-      operator: "+"
-    });
+      total: parseInt(number1) + parseInt(number2),
+      operator: "+",
+      numFields: 2
+    })
     this.addBox();
   };
-
-  subtract = () => {
-    const { number1, number2, number3 } = this.state;
+  voiceAdd = (number1, number2) => {
     this.setState({
-      total: parseInt(number1) - parseInt(number2) - parseInt(number3),
-      operator: "-"
+      showFields: true,
+      operator: '+',
+      number1: number1,
+      number2: number2,
+      name: 'Addition'
+    })
+    this.add();
+  };
+
+  subtract = (number1, number2) => {
+    number1 = this.state.number1;
+    number2 = this.state.number2;
+    this.setState({
+      total: parseInt(number1) - parseInt(number2),
+      operator: "-",
+      numFields: 2
     });
     this.subtractBox();
   };
 
-  foo = () => {
-    const { number1, number2, number3 } = this.state;
+  voiceSubtract = (number1, number2) => {
+    this.setState({
+      showFields: true,
+      operator: '-',
+      number1: number1,
+      number2: number2,
+      name: 'Subtraction',
+    })
+    this.subtract();
+  };
+
+  foo = (number1, number2, number3) => {
+    number1 = this.state.number1;
+    number2 = this.state.number2;
+    number3 = this.state.number3;
     this.setState({
       total: parseInt(number1 * number2) / parseInt(number3),
-      operator: "?"
+      operator: "?",
+      numFields: 3
     });
     this.fooBox();
   };
 
+  voiceFoo = (number1, number2, number3) => {
+    this.setState({
+      showFields: true,
+      operator: '?',
+      number1: number1,
+      number2: number2,
+      number3: number3,
+      name: 'Algebra',
+    })
+    this.foo();
+  };
+
   random = () => {
     this.setState({
-      total: Math.floor(Math.random() * 10000 + 100)
+      total: Math.floor(Math.random() * 10000 + 100),
+      numFields: 0
     });
   };
 
@@ -110,10 +161,13 @@ class App extends Component {
     const { operator } = this.state;
     switch (operator) {
       case "+":
+      this.add();
         return this.add();
       case "-":
+      this.subtract();
         return this.subtract();
       case "?":
+      this.foo();
         return this.foo();
       default:
         return null;
@@ -129,9 +183,6 @@ class App extends Component {
       case "?":
         return this.fooBox();
       case "O_o":
-      this.setState({
-        showFields: false
-      })
         return this.randomBox();
       default:
         return null;
@@ -139,29 +190,34 @@ class App extends Component {
   };
 
   addBox = () => {
-    const { number1, number2, number3, total } = this.state;
+    const { number1, number2, total } = this.state;
     this.setState({
-      expression: `${number1} + ${number2} + ${number3} = ${total}`
+      expression: `${number1} + ${number2} = ${total}`,
+      numFields: 2
     });
   };
 
   subtractBox = () => {
-    const { number1, number2, number3, total } = this.state;
+    const { number1, number2, total } = this.state;
     this.setState({
-      expression: `${number1} - ${number2} - ${number3} = ${total}`
+      expression: `${number1} - ${number2} = ${total}`,
+      numFields: 2
     });
   };
 
   fooBox = () => {
     const { number1, number2, number3, total } = this.state;
     this.setState({
-      expression: `(${number1} * ${number2}) / ${number3} = ${total}`
+      expression: `(${number1} * ${number2}) / ${number3} = ${total}`,
+      numFields: 3
     });
   };
 
   randomBox = () => {
     this.setState({
-      expression: Math.floor(Math.random() * 10000 + 100)
+      expression: Math.floor(Math.random() * 10000 + 100),
+      name: 'Random',
+      numFields: 0
     });
   };
 
@@ -169,15 +225,17 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <div className="container-drag">
+        {!this.state.calculator ? <HomePage showCalculator={this.showCalculator.bind(this)}/> :
+        <div className='calculator'>
+          <div className="container-drag">
           <div
             className="droppable"
             onDragOver={e => this.onDragOver(e)}
             onDrop={e => this.onDrop(e, this.state.operator, this.state.name)}
           >
-            {this.state.showFields ? (<Fields handleChange={this.handleChange.bind(this)} name={this.state.name}/>) : null}
+            {this.state.showFields ? (<Fields handleChange={this.handleChange.bind(this)} name={this.state.name} numFields={this.state.numFields}/>) : null}
           </div>
-          <Expressions expression={this.state.expression} />
+          <Expressions expression={this.state.expression}/>
           <button className="total-button" onClick={this.calculate.bind(this)}>
             Calculate
           </button>
@@ -219,7 +277,11 @@ class App extends Component {
         >
           Random #
         </button>
+        <VoiceModal size="lg"/>
+        </div>
+        }
       </div>
+        
     );
   }
 }

@@ -2,14 +2,17 @@
   "name": "calculator",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://dlsstanford.github.io/Visual-Calculator",
+  "homepage": "https://dlsstanford.github.io/Visual-Calculator",
   "dependencies": {
     "annyang": "^2.6.1",
+    "bootstrap": "^4.1.3",
     "gh-pages": "^1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-icons": "^3.0.5",
     "react-mdl": "^1.11.0",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "reactstrap": "^6.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
